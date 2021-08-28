@@ -15,8 +15,6 @@ class UserSerializer(serializers.ModelSerializer):
             'last_name',
         )
 
-# Register Serializer
-
 
 class RegisterSerializer(serializers.ModelSerializer):
     class Meta:

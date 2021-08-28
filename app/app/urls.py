@@ -17,8 +17,7 @@ urlpatterns = [
         description="Crypcentra ICO API schema",
         version="1.0.0"
     ), name='api_schema'),
-    
     path('v1/users/', include('users.urls')),
-    
+
 ] + (static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
      + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT))
