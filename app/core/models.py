@@ -32,7 +32,7 @@ class Bid(models.Model):
     """Bid Model"""
     STATUS = (
         ('recieved some', 'RECIEVED SOME'),
-        ('recieved', 'RECIEVED'),
+        ('recieved all', 'RECIEVED ALL'),
         ('none', 'None')
     )
 
