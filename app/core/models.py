@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from core.model_validators.validate_date import validate_date
-from core import utils
+from core.utils import current_date
 
 
 class Coin(models.Model):
@@ -20,7 +20,7 @@ class Coin(models.Model):
         return f'{self.owner}: {self.name}'
 
     def clean(self):
-        if self.bidding_window <= utils.current_date():
+        if self.bidding_window <= current_date():
             raise ValidationError("bidding window has to be a future date")
 
     def save(self, *args, **kwargs):
@@ -55,14 +55,14 @@ class Bid(models.Model):
     def __str__(self):
         return f'{self.user}: {self.coin}'
 
-    def is_bidding_window_open(self):
-        """Check if coin bidding window is open"""
-        if self.coin.bidding_window <= utils.current_date():
-            raise ValidationError("bidding window is closed")
+    # def is_bidding_window_open(self):
+    #     """Check if coin bidding window is open"""
+    #     if self.coin.bidding_window <= utils.current_date():
+    #         raise ValidationError("bidding window is closed")
 
-    def clean(self):
-        self.is_bidding_window_open()
+    # def clean(self):
+    #     self.is_bidding_window_open()
 
-    def save(self, *args, **kwargs):
-        self.clean()
-        super().save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #     self.clean()
+    #     super().save(*args, **kwargs)
