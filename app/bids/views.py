@@ -26,4 +26,4 @@ class BidsViewSet(viewsets.GenericViewSet,
         return Bid.objects.filter(user=self.request.user)
 
     def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
+        serializer.save(user=self.request.user)
