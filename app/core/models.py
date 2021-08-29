@@ -30,6 +30,12 @@ class Coin(models.Model):
 
 class Bid(models.Model):
     """Bid Model"""
+    STATUS = (
+        ('recieved some', 'RECIEVED SOME'),
+        ('recieved', 'RECIEVED'),
+        ('none', None)
+    )
+
     coin = models.ForeignKey(
         Coin, on_delete=models.CASCADE)
     user = models.ForeignKey(
@@ -37,6 +43,13 @@ class Bid(models.Model):
     number_of_tokens = models.DecimalField(max_digits=10,
                                            decimal_places=5)
     bidding_price = models.PositiveIntegerField()
+    token_recieved = models.DecimalField(max_digits=10,
+                                         decimal_places=5,
+                                         blank=True,
+                                         null=True)
+    status = models.CharField(max_length=30,
+                              choices=STATUS,
+                              default=None)
     timestamp = models.DateTimeField(auto_now=True)
 
     def __str__(self):
