@@ -33,7 +33,7 @@ class Bid(models.Model):
     STATUS = (
         ('recieved some', 'RECIEVED SOME'),
         ('recieved', 'RECIEVED'),
-        ('none', None)
+        ('none', 'None')
     )
 
     coin = models.ForeignKey(
@@ -49,7 +49,7 @@ class Bid(models.Model):
                                          null=True)
     status = models.CharField(max_length=30,
                               choices=STATUS,
-                              default=None)
+                              default="None")
     timestamp = models.DateTimeField(auto_now=True)
 
     def __str__(self):
