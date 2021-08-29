@@ -8,12 +8,22 @@ def current_date():
     return timezone.now()
 
 
-def create_coin(user):
+def create_coin(user, name="My coin"):
     """Creates coin model object"""
     return models.Coin.objects.create(
-        name="My coin",
+        name=name,
         owner=user,
         description="Best coin",
         bidding_window=current_date() + timedelta(days=10),
         number_of_available_token=123.5,
+    )
+
+
+def create_bid(user, name="My coin"):
+    """Creates bid model object"""
+    return models.Bid.objects.create(
+        coin=create_coin(user, name),
+        user=user,
+        number_of_tokens=12.5,
+        bidding_price=1000,
     )

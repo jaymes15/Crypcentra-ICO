@@ -38,7 +38,7 @@ class TestCoinModel(TestCase):
             bidding_window=current_date - timedelta(days=10),
             number_of_available_token=123.5,
         )
-       
+
         self.assertRaises(ValidationError, coin.full_clean)
 
     def test_str_return(self):
@@ -48,3 +48,43 @@ class TestCoinModel(TestCase):
         coin_query = models.Coin.objects.last()
 
         self.assertEquals(str(coin_query), str(coin))
+
+
+class TestBidModel(TestCase):
+
+    def setUp(self):
+        self.user = sample_user()
+
+    def test_create_bid(self):
+        """Test bid can be created"""
+
+        bid = utils.create_bid(self.user)
+        bid_query = models.Bid.objects.last()
+
+        self.assertEquals(bid_query, bid)
+
+    def test_user_bidding_for_a_coin_is_unique(self):
+        """Test user bidding for a coin is unique """
+
+        utils.create_bid(self.user)
+
+        with self.assertRaises(IntegrityError):
+            utils.create_bid(self.user)
+
+    def test_user_can_bid_for_different_coins(self):
+        """Test user can bid for different coin"""
+
+        first_coin_bid = utils.create_bid(self.user)
+        second_coin_bid = utils.create_bid(self.user,
+                                           "my other coin")
+
+        self.assertIsNotNone(first_coin_bid)
+        self.assertIsNotNone(second_coin_bid)
+
+    def test_str_return(self):
+        """Test BidModel str method"""
+
+        bid = utils.create_bid(self.user)
+        bid_query = models.Bid.objects.last()
+
+        self.assertEquals(str(bid_query), str(bid))
