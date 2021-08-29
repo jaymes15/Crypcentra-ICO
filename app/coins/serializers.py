@@ -10,9 +10,11 @@ class CoinListSerializer(serializers.ModelSerializer):
     class Meta(object):
         model = Coin
         fields = ('id', 'owner', 'name', 'description',
-                  'created_on', 'bidding_window')
+                  'created_on', 'bidding_window',
+                  'number_of_available_token')
         read_only_fields = ('id', 'owner', 'name', 'description',
-                            'created_on', 'bidding_window')
+                            'created_on', 'bidding_window',
+                            'number_of_available_token')
 
 
 class CoinSerializer(serializers.ModelSerializer):
@@ -21,5 +23,6 @@ class CoinSerializer(serializers.ModelSerializer):
     class Meta(object):
         model = Coin
         fields = ('id', 'owner', 'name', 'description',
-                  'created_on', 'bidding_window')
+                  'created_on', 'bidding_window',
+                  'number_of_available_token')
         read_only_fields = ('id', 'owner', 'created_on',)

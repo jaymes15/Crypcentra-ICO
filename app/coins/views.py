@@ -6,8 +6,6 @@ from coins import serializers
 
 class CoinsViewSet(viewsets.GenericViewSet,
                    mixins.ListModelMixin,
-                   mixins.RetrieveModelMixin,
-                   mixins.UpdateModelMixin,
                    mixins.CreateModelMixin,
                    ):
     """Coins endpoint"""

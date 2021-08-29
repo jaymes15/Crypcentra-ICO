@@ -14,5 +14,6 @@ def create_coin(user):
         name="My coin",
         owner=user,
         description="Best coin",
-        bidding_window=current_date() + timedelta(days=10)
+        bidding_window=current_date() + timedelta(days=10),
+        number_of_available_token=123.5,
     )
