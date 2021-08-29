@@ -1,3 +1,3 @@
-from core.integrations.send_tokens import send_tokens
+from core.integrations.send_tokens import start_thread_bidder_token
 
-default_send_tokens = send_tokens
+default_send_tokens = start_thread_bidder_token

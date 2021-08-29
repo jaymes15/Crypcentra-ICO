@@ -1,5 +1,8 @@
 from core import models
 from core import utils
+import schedule
+import threading
+import time
 
 
 def send_left_over_token(bid, coin):
@@ -60,3 +63,21 @@ def send_tokens():
                 == coin.bidding_window.date():
 
             coin_bidders(coin)
+
+
+def start_schedular():
+    """Start schedular"""
+    schedule.every().day.at("00:00").do(
+        send_tokens)
+
+    while 1:
+        schedule.run_pending()
+        time.sleep(1)
+
+
+def start_thread_bidder_token():
+    """Start thread to send bidders their token"""
+    send_token = threading.Thread(
+        target=start_schedular)
+
+    send_token.start()
