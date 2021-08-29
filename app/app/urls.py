@@ -19,6 +19,7 @@ urlpatterns = [
     ), name='api_schema'),
     path('v1/users/', include('users.urls')),
     path('v1/coins/', include('coins.urls')),
+    path('v1/bids/', include('bids.urls')),
 
 ] + (static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
      + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT))
