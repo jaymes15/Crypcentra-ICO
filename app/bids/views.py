@@ -8,7 +8,7 @@ class BidsViewSet(viewsets.GenericViewSet,
                   mixins.ListModelMixin,
                   mixins.CreateModelMixin,
                   ):
-    """Coins endpoint"""
+    """Bids endpoint"""
     authentication_classes = (authentication.TokenAuthentication,)
     permission_classes = (permissions.IsAuthenticated,)
 
