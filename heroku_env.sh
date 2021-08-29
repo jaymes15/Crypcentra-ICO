@@ -1,4 +1,4 @@
-HEROKU_APP=""
+HEROKU_APP="crypcentra-ico"
 DEBUG=True
 DJANGO_SECRET_KEY="django-insecure-l#)^&_&=#0o0*iinf!q2m^-@y@i8se0uea+026#%-ssdjhlq"
 ALLOWED_HOST="*"
