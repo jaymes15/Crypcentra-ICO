@@ -10,6 +10,7 @@ from core.helpers import sample_user
 
 
 BIDS_URL = reverse('bids:bids-list')
+REVIEW_BIDS_URL = reverse('bids:bids_review-list')
 
 
 class TestBidsView(TestCase):
@@ -77,3 +78,33 @@ class TestBidsView(TestCase):
 
         self.assertEquals(response.status_code,
                           status.HTTP_401_UNAUTHORIZED)
+
+
+class TestReviewBidsView(TestCase):
+
+    def setUp(self):
+
+        self.user = sample_user()
+        self.client = APIClient()
+
+    def test_post_not_allowed(self):
+        """Test POST"""
+        self.client.force_authenticate(user=self.user)
+
+        response = self.client.post(BIDS_URL, data={})
+
+        self.assertEquals(response.status_code,
+                          status.HTTP_400_BAD_REQUEST)
+
+    def test_get(self):
+        """Test GET"""
+        self.client.force_authenticate(user=self.user)
+        utils.create_bid(self.user)
+
+        response = self.client.get(REVIEW_BIDS_URL)
+        user_bids = Bid.objects.filter(coin__owner=self.user.id)
+        serializer = BidListSerializer(user_bids, many=True)
+
+        self.assertEquals(response.status_code, status.HTTP_200_OK)
+        self.assertIsNotNone(response.data)
+        self.assertEquals(serializer.data, response.data)

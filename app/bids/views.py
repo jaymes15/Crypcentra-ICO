@@ -27,3 +27,17 @@ class BidsViewSet(viewsets.GenericViewSet,
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+
+
+class ReviewBidsViewSet(viewsets.GenericViewSet,
+                        mixins.ListModelMixin,
+                        ):
+    """Review Bids endpoint"""
+    authentication_classes = (authentication.TokenAuthentication,)
+    permission_classes = (permissions.IsAuthenticated,)
+
+    queryset = Bid.objects.all()
+    serializer_class = serializers.BidListSerializer
+
+    def get_queryset(self):
+        return Bid.objects.filter(coin__owner=self.request.user)
