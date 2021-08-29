@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'users',
     'core',
+    'coins',
 
 ]
 
