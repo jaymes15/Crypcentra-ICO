@@ -63,14 +63,6 @@ class TestBidModel(TestCase):
 
         self.assertEquals(bid_query, bid)
 
-    def test_user_bidding_for_a_coin_is_unique(self):
-        """Test user bidding for a coin is unique """
-
-        utils.create_bid(self.user)
-
-        with self.assertRaises(IntegrityError):
-            utils.create_bid(self.user)
-
     def test_user_can_bid_for_different_coins(self):
         """Test user can bid for different coin"""
 

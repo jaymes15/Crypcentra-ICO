@@ -54,15 +54,3 @@ class Bid(models.Model):
 
     def __str__(self):
         return f'{self.user}: {self.coin}'
-
-    # def is_bidding_window_open(self):
-    #     """Check if coin bidding window is open"""
-    #     if self.coin.bidding_window <= utils.current_date():
-    #         raise ValidationError("bidding window is closed")
-
-    # def clean(self):
-    #     self.is_bidding_window_open()
-
-    # def save(self, *args, **kwargs):
-    #     self.clean()
-    #     super().save(*args, **kwargs)
