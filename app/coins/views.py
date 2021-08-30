@@ -1,5 +1,5 @@
 from rest_framework import viewsets, mixins, \
-    permissions, authentication
+    permissions
 from core.models import Coin
 from coins import serializers
 
@@ -9,7 +9,7 @@ class CoinsViewSet(viewsets.GenericViewSet,
                    mixins.CreateModelMixin,
                    ):
     """Coins endpoint"""
-    
+
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
     queryset = Coin.objects.all()
