@@ -1,5 +1,5 @@
 from rest_framework import viewsets, mixins, \
-    permissions, authentication
+    permissions
 from core.models import Bid
 from bids import serializers
 
@@ -9,7 +9,7 @@ class BidsViewSet(viewsets.GenericViewSet,
                   mixins.CreateModelMixin,
                   ):
     """Bids endpoint"""
-    authentication_classes = (authentication.TokenAuthentication,)
+
     permission_classes = (permissions.IsAuthenticated,)
 
     queryset = Bid.objects.all()
@@ -33,7 +33,7 @@ class ReviewBidsViewSet(viewsets.GenericViewSet,
                         mixins.ListModelMixin,
                         ):
     """Review Bids endpoint"""
-    authentication_classes = (authentication.TokenAuthentication,)
+
     permission_classes = (permissions.IsAuthenticated,)
 
     queryset = Bid.objects.all()

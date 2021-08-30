@@ -9,7 +9,7 @@ class CoinsViewSet(viewsets.GenericViewSet,
                    mixins.CreateModelMixin,
                    ):
     """Coins endpoint"""
-    authentication_classes = (authentication.TokenAuthentication,)
+    
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
     queryset = Coin.objects.all()
