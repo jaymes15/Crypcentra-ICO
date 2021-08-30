@@ -20,7 +20,7 @@ class Coin(models.Model):
         return f'{self.owner}: {self.name}'
 
     def clean(self):
-        if self.bidding_window <= current_date():
+        if self.bidding_window.date() <= current_date().date():
             raise ValidationError("bidding window has to be a future date")
 
     def save(self, *args, **kwargs):
