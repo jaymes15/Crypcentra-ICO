@@ -10,4 +10,4 @@ for model in models:
     except admin.sites.AlreadyRegistered:
         pass
 
-admin.site.site_header = 'Crypcentra ICO Admin'
+admin.site.site_header = "Crypcentra ICO Admin"

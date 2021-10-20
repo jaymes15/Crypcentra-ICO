@@ -4,17 +4,15 @@ from rest_framework import status
 from rest_framework.test import APIClient
 from core.models import Bid
 from core.tests import utils
-from bids.serializers import BidListSerializer,\
-    BidSerializer
+from bids.serializers import BidListSerializer, BidSerializer
 from core.helpers import sample_user
 
 
-BIDS_URL = reverse('bids:bids-list')
-REVIEW_BIDS_URL = reverse('bids:bids_review-list')
+BIDS_URL = reverse("bids:bids-list")
+REVIEW_BIDS_URL = reverse("bids:bids_review-list")
 
 
 class TestBidsView(TestCase):
-
     def setUp(self):
 
         self.user = sample_user()
@@ -31,15 +29,12 @@ class TestBidsView(TestCase):
             "coin": coin.id,
             "number_of_tokens": 12.5,
             "bidding_price": 1000,
-
         }
         response = self.client.post(BIDS_URL, data=payload)
         bid_query = Bid.objects.last()
-        serializer = BidSerializer(bid_query,
-                                   many=False)
+        serializer = BidSerializer(bid_query, many=False)
 
-        self.assertEquals(response.status_code,
-                          status.HTTP_201_CREATED)
+        self.assertEquals(response.status_code, status.HTTP_201_CREATED)
         self.assertEquals(response.data, serializer.data)
 
     def test_post_requires_user_authentication(self):
@@ -50,12 +45,10 @@ class TestBidsView(TestCase):
             "coin": coin.id,
             "number_of_tokens": 12.5,
             "bidding_price": 1000,
-
         }
         response = self.client.post(BIDS_URL, data=payload)
 
-        self.assertEquals(response.status_code,
-                          status.HTTP_401_UNAUTHORIZED)
+        self.assertEquals(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
     def test_get_user_bids(self):
         """Test GET user bids"""
@@ -76,12 +69,10 @@ class TestBidsView(TestCase):
 
         response = self.client.get(BIDS_URL)
 
-        self.assertEquals(response.status_code,
-                          status.HTTP_401_UNAUTHORIZED)
+        self.assertEquals(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
 
 class TestReviewBidsView(TestCase):
-
     def setUp(self):
 
         self.user = sample_user()
@@ -93,8 +84,7 @@ class TestReviewBidsView(TestCase):
 
         response = self.client.post(BIDS_URL, data={})
 
-        self.assertEquals(response.status_code,
-                          status.HTTP_400_BAD_REQUEST)
+        self.assertEquals(response.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_get(self):
         """Test GET"""

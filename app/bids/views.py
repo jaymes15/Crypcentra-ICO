@@ -1,13 +1,13 @@
-from rest_framework import viewsets, mixins, \
-    permissions
+from rest_framework import viewsets, mixins, permissions
 from core.models import Bid
 from bids import serializers
 
 
-class BidsViewSet(viewsets.GenericViewSet,
-                  mixins.ListModelMixin,
-                  mixins.CreateModelMixin,
-                  ):
+class BidsViewSet(
+    viewsets.GenericViewSet,
+    mixins.ListModelMixin,
+    mixins.CreateModelMixin,
+):
     """Bids endpoint"""
 
     permission_classes = (permissions.IsAuthenticated,)
@@ -17,7 +17,7 @@ class BidsViewSet(viewsets.GenericViewSet,
 
     def get_serializer_class(self):
 
-        if self.action == 'list' or self.action == 'retrieve':
+        if self.action == "list" or self.action == "retrieve":
             return serializers.BidListSerializer
 
         return serializers.BidSerializer
@@ -29,9 +29,10 @@ class BidsViewSet(viewsets.GenericViewSet,
         serializer.save(user=self.request.user)
 
 
-class ReviewBidsViewSet(viewsets.GenericViewSet,
-                        mixins.ListModelMixin,
-                        ):
+class ReviewBidsViewSet(
+    viewsets.GenericViewSet,
+    mixins.ListModelMixin,
+):
     """Review Bids endpoint"""
 
     permission_classes = (permissions.IsAuthenticated,)

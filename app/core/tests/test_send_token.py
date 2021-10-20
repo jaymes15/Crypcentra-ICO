@@ -8,13 +8,11 @@ from unittest.mock import patch
 
 
 class TestSendToken(TestCase):
-
     def setUp(self):
         self.main_user = sample_user("main_user")
         self.number_of_token = 28.0
         self.coin = utils.create_coin(
-            self.main_user,
-            token=self.number_of_token)
+            self.main_user, token=self.number_of_token)
 
         self.create_users()
         self.create_bids()
@@ -44,11 +42,10 @@ class TestSendToken(TestCase):
         self.user_4_bid = self.create_bid(self.user_4, 5, 15000)
         self.user_5_bid = self.create_bid(self.user_5, 2, 2000)
 
-    @patch('core.models.current_date')
+    @patch("core.models.current_date")
     def test_send_token(self, mock_return):
         """Test send token"""
-        mock_return.return_value = \
-            utils.current_date() - timedelta(days=10)
+        mock_return.return_value = utils.current_date() - timedelta(days=10)
 
         self.coin.bidding_window = utils.current_date()
 
@@ -64,36 +61,22 @@ class TestSendToken(TestCase):
         self.user_5_bid.refresh_from_db()
 
         self.assertEquals(
-            self.user_1_bid.token_recieved,
-            self.user_1_bid.number_of_tokens)
+            self.user_1_bid.token_recieved, self.user_1_bid.number_of_tokens
+        )
         self.assertEquals(
-            self.user_2_bid.token_recieved,
-            self.user_2_bid.number_of_tokens)
+            self.user_2_bid.token_recieved, self.user_2_bid.number_of_tokens
+        )
         self.assertEquals(
-            self.user_3_bid.token_recieved,
-            self.user_3_bid.number_of_tokens)
-        self.assertEquals(
-            self.user_4_bid.token_recieved,
-            2.00000)
-        self.assertEquals(
-            self.user_5_bid.token_recieved,
-            None)
+            self.user_3_bid.token_recieved, self.user_3_bid.number_of_tokens
+        )
+        self.assertEquals(self.user_4_bid.token_recieved, 2.00000)
+        self.assertEquals(self.user_5_bid.token_recieved, None)
 
-        self.assertEquals(
-            self.user_1_bid.status,
-            'recieved all')
-        self.assertEquals(
-            self.user_2_bid.status,
-            'recieved all')
-        self.assertEquals(
-            self.user_3_bid.status,
-            'recieved all')
-        self.assertEquals(
-            self.user_4_bid.status,
-            'recieved some')
-        self.assertEquals(
-            self.user_5_bid.status,
-            'None')
+        self.assertEquals(self.user_1_bid.status, "recieved all")
+        self.assertEquals(self.user_2_bid.status, "recieved all")
+        self.assertEquals(self.user_3_bid.status, "recieved all")
+        self.assertEquals(self.user_4_bid.status, "recieved some")
+        self.assertEquals(self.user_5_bid.status, "None")
 
     def test_bidding_window(self):
         """
@@ -109,34 +92,14 @@ class TestSendToken(TestCase):
         self.user_4_bid.refresh_from_db()
         self.user_5_bid.refresh_from_db()
 
-        self.assertEquals(
-            self.user_1_bid.token_recieved,
-            None)
-        self.assertEquals(
-            self.user_2_bid.token_recieved,
-            None)
-        self.assertEquals(
-            self.user_3_bid.token_recieved,
-            None)
-        self.assertEquals(
-            self.user_4_bid.token_recieved,
-            None)
-        self.assertEquals(
-            self.user_5_bid.token_recieved,
-            None)
+        self.assertEquals(self.user_1_bid.token_recieved, None)
+        self.assertEquals(self.user_2_bid.token_recieved, None)
+        self.assertEquals(self.user_3_bid.token_recieved, None)
+        self.assertEquals(self.user_4_bid.token_recieved, None)
+        self.assertEquals(self.user_5_bid.token_recieved, None)
 
-        self.assertEquals(
-            self.user_1_bid.status,
-            'None')
-        self.assertEquals(
-            self.user_2_bid.status,
-            'None')
-        self.assertEquals(
-            self.user_3_bid.status,
-            'None')
-        self.assertEquals(
-            self.user_4_bid.status,
-            'None')
-        self.assertEquals(
-            self.user_5_bid.status,
-            'None')
+        self.assertEquals(self.user_1_bid.status, "None")
+        self.assertEquals(self.user_2_bid.status, "None")
+        self.assertEquals(self.user_3_bid.status, "None")
+        self.assertEquals(self.user_4_bid.status, "None")
+        self.assertEquals(self.user_5_bid.status, "None")

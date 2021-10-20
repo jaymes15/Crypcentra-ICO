@@ -1,13 +1,13 @@
-from rest_framework import viewsets, mixins, \
-    permissions
+from rest_framework import viewsets, mixins, permissions
 from core.models import Coin
 from coins import serializers
 
 
-class CoinsViewSet(viewsets.GenericViewSet,
-                   mixins.ListModelMixin,
-                   mixins.CreateModelMixin,
-                   ):
+class CoinsViewSet(
+    viewsets.GenericViewSet,
+    mixins.ListModelMixin,
+    mixins.CreateModelMixin,
+):
     """Coins endpoint"""
 
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
@@ -17,13 +17,13 @@ class CoinsViewSet(viewsets.GenericViewSet,
 
     def get_serializer_class(self):
 
-        if self.action == 'list' or self.action == 'retrieve':
+        if self.action == "list" or self.action == "retrieve":
             return serializers.CoinListSerializer
 
         return serializers.CoinSerializer
 
     def get_queryset(self):
-        coin_name = self.request.query_params.get('coin_name', None)
+        coin_name = self.request.query_params.get("coin_name", None)
 
         if self.request.user.is_authenticated:
 

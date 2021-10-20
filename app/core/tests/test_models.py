@@ -1,57 +1,77 @@
+import pytest
 from django.test import TestCase
 from django.db.utils import IntegrityError
 from django.core.exceptions import ValidationError
+from mixer.backend.django import mixer
 from core import models
 from core.tests import utils
 from core.helpers import sample_user
 from datetime import timedelta
 
 
-class TestCoinModel(TestCase):
+pytestmark = pytest.mark.django_db
 
+class TestCoinModel:
     def setUp(self):
         self.user = sample_user()
 
     def test_create_coin(self):
         """Test coin can be created"""
 
-        coin = utils.create_coin(self.user)
+        coin = mixer.blend(
+            models.Coin,
+            bidding_window=utils.current_date() + timedelta(days=10),
+        )
         coin_query = models.Coin.objects.last()
-
-        self.assertEquals(coin_query, coin)
+ 
+        assert coin_query == coin
 
     def test_coin_name_is_unique(self):
         """Test coin name is unique"""
 
-        utils.create_coin(self.user)
+        mixer.blend(
+            models.Coin,
+            name="my coin",
+            bidding_window=utils.current_date() + timedelta(days=10),
+        )
 
-        with self.assertRaises(IntegrityError):
-            utils.create_coin(self.user)
+        with pytest.raises(IntegrityError):
+            mixer.blend(
+                models.Coin,
+                name="my coin",
+                bidding_window=utils.current_date() + timedelta(days=10),
+            )
 
     def test_date_validator(self):
         """Test Coin object with past date can not be created"""
+
         current_date = utils.current_date()
+
         coin = models.Coin(
             name="My coin",
-            owner=self.user,
+            owner=sample_user(),
             description="Best coin",
             bidding_window=current_date - timedelta(days=10),
             number_of_available_token=123.5,
         )
 
-        self.assertRaises(ValidationError, coin.full_clean)
+        # self.assertRaises(ValidationError, coin.full_clean)
+        with pytest.raises(ValidationError):
+            coin.save()
 
     def test_str_return(self):
         """Test CoinModel str method"""
 
-        coin = utils.create_coin(self.user)
+        coin = mixer.blend(
+            models.Coin,
+            bidding_window=utils.current_date() + timedelta(days=10),
+        )
         coin_query = models.Coin.objects.last()
 
-        self.assertEquals(str(coin_query), str(coin))
+        assert str(coin_query) == str(coin)
 
 
 class TestBidModel(TestCase):
-
     def setUp(self):
         self.user = sample_user()
 
@@ -67,8 +87,7 @@ class TestBidModel(TestCase):
         """Test user can bid for different coin"""
 
         first_coin_bid = utils.create_bid(self.user)
-        second_coin_bid = utils.create_bid(self.user,
-                                           "my other coin")
+        second_coin_bid = utils.create_bid(self.user, "my other coin")
 
         self.assertIsNotNone(first_coin_bid)
         self.assertIsNotNone(second_coin_bid)

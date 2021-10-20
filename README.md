@@ -76,3 +76,7 @@ To tear down the all containers:
 ```bash
 docker-compose down
 ```
+
+<!-- pytest --ds=app.settings -->
+<!-- 
+ -v -p no:warnings --ds=app.settings" -->

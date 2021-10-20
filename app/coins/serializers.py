@@ -5,16 +5,29 @@ from users.serializers import UserSerializer
 
 class CoinListSerializer(serializers.ModelSerializer):
     """List Coin model serializer"""
+
     owner = UserSerializer(read_only=True)
 
     class Meta(object):
         model = Coin
-        fields = ('id', 'owner', 'name', 'description',
-                  'created_on', 'bidding_window',
-                  'number_of_available_token')
-        read_only_fields = ('id', 'owner', 'name', 'description',
-                            'created_on', 'bidding_window',
-                            'number_of_available_token')
+        fields = (
+            "id",
+            "owner",
+            "name",
+            "description",
+            "created_on",
+            "bidding_window",
+            "number_of_available_token",
+        )
+        read_only_fields = (
+            "id",
+            "owner",
+            "name",
+            "description",
+            "created_on",
+            "bidding_window",
+            "number_of_available_token",
+        )
 
 
 class CoinSerializer(serializers.ModelSerializer):
@@ -22,7 +35,17 @@ class CoinSerializer(serializers.ModelSerializer):
 
     class Meta(object):
         model = Coin
-        fields = ('id', 'owner', 'name', 'description',
-                  'created_on', 'bidding_window',
-                  'number_of_available_token')
-        read_only_fields = ('id', 'owner', 'created_on',)
+        fields = (
+            "id",
+            "owner",
+            "name",
+            "description",
+            "created_on",
+            "bidding_window",
+            "number_of_available_token",
+        )
+        read_only_fields = (
+            "id",
+            "owner",
+            "created_on",
+        )
