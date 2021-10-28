@@ -9,14 +9,6 @@ on:
   pull_request: []
 
 jobs:
-  format_code:
-    name: Format code
-    runs-on: ubuntu-20.04
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Format Code
-        run: docker-compose run --rm app sh -c "black ."
 
   test:
     name: Test
