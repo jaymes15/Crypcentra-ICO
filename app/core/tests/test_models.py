@@ -11,6 +11,7 @@ from datetime import timedelta
 
 pytestmark = pytest.mark.django_db
 
+
 class TestCoinModel:
     def setUp(self):
         self.user = sample_user()
@@ -23,7 +24,7 @@ class TestCoinModel:
             bidding_window=utils.current_date() + timedelta(days=10),
         )
         coin_query = models.Coin.objects.last()
- 
+
         assert coin_query == coin
 
     def test_coin_name_is_unique(self):
