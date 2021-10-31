@@ -11,14 +11,17 @@ from core.metrics_common import Metrics
 
 
 class RegisterAPI(generics.GenericAPIView):
-    Metrics.upload_urls_created.inc()
-    
+
     serializer_class = RegisterSerializer
 
     def post(self, request, *args, **kwargs):
+
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
+
+        Metrics.upload_urls_created.inc()
+
         return Response(
             {
                 "user": UserSerializer(
@@ -31,13 +34,15 @@ class RegisterAPI(generics.GenericAPIView):
 
 
 class LoginAPI(KnoxLoginView):
-    Metrics.upload_urls_created.inc()
-    
+
     permission_classes = (permissions.AllowAny,)
 
     def post(self, request, format=None):
         serializer = AuthTokenSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data["user"]
+
         login(request, user)
+        Metrics.upload_urls_created.inc()
+
         return super(LoginAPI, self).post(request, format=None)
