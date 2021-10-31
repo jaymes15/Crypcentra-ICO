@@ -27,6 +27,7 @@ urlpatterns = [
     path("v1/users/", include("users.urls")),
     path("v1/coins/", include("coins.urls")),
     path("v1/bids/", include("bids.urls")),
+    path("", include("django_prometheus.urls"), name="django-prometheus"),
 ] + (
     static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

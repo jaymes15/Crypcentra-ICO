@@ -5,11 +5,14 @@ from rest_framework.authtoken.serializers import AuthTokenSerializer
 from knox.models import AuthToken
 from knox.views import LoginView as KnoxLoginView
 from users.serializers import UserSerializer, RegisterSerializer
+from core.metrics_common import Metrics
 
 # Register API
 
 
 class RegisterAPI(generics.GenericAPIView):
+    Metrics.upload_urls_created.inc()
+    
     serializer_class = RegisterSerializer
 
     def post(self, request, *args, **kwargs):
@@ -28,6 +31,8 @@ class RegisterAPI(generics.GenericAPIView):
 
 
 class LoginAPI(KnoxLoginView):
+    Metrics.upload_urls_created.inc()
+    
     permission_classes = (permissions.AllowAny,)
 
     def post(self, request, format=None):
