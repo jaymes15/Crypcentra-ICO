@@ -5,7 +5,6 @@ from rest_framework.authtoken.serializers import AuthTokenSerializer
 from knox.models import AuthToken
 from knox.views import LoginView as KnoxLoginView
 from users.serializers import UserSerializer, RegisterSerializer
-from core.metrics_common import Metrics
 
 # Register API
 
@@ -19,8 +18,6 @@ class RegisterAPI(generics.GenericAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
-
-        Metrics.upload_urls_created.inc()
 
         return Response(
             {
@@ -43,6 +40,5 @@ class LoginAPI(KnoxLoginView):
         user = serializer.validated_data["user"]
 
         login(request, user)
-        Metrics.upload_urls_created.inc()
 
         return super(LoginAPI, self).post(request, format=None)

@@ -1,12 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
-from django_prometheus.models import ExportModelOperationsMixin
 from core.model_validators.validate_date import validate_date
 from core.utils import current_date
 
 
-class Coin(ExportModelOperationsMixin("dataset"), models.Model):
+class Coin(models.Model):
     """Coin Model"""
 
     name = models.CharField(max_length=255, unique=True)
