@@ -1,4 +1,4 @@
-HEROKU_APP="doc"
+HEROKU_APP="crypcentra-ico"
 DEBUG=True
 
 heroku config:set DEBUG=$DEBUG --app $HEROKU_APP
