@@ -2,7 +2,7 @@ HEROKU_APP="crypcentra-ico"
 DEBUG=True
 
 echo "hdhd testunggg"
-echo ${secrets.HEROKU_API_KEY}
+echo $JAMES
 
 heroku config:set DEBUG=$DEBUG --app $HEROKU_APP
 
