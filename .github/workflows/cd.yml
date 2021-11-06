@@ -31,7 +31,7 @@ jobs:
   deploy-staging:
     name: Deploy to Staging
     runs-on: ubuntu-latest
-    needs: [test, lint]
+    # needs: [test, lint]
     if: github.ref == 'refs/heads/master'
     steps:
     - uses: actions/checkout@v1
