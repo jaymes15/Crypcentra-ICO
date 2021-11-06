@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 import os
 from pathlib import Path
+
 from django.core.exceptions import ImproperlyConfigured
 
 
@@ -43,7 +44,11 @@ else:
 ALLOWED_HOSTS = ["*"]
 
 ALLOWED_HOSTS.extend(
-    filter(None, get_env_variable("ALLOWED_HOSTS", "").split(",")))
+    filter(
+        None,
+        os.environ.get('ALLOWED_HOSTS', '').split(',')
+    )
+)
 
 
 # Application definition
