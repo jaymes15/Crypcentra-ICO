@@ -46,12 +46,11 @@ jobs:
     - name: Release
       env:
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        JAMES: ${{ secrets.JAMES }}
       run: heroku container:release -a ${{ secrets.HEROKU_APP_NAME }} web
     - name: Heroku app config
       env: 
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-
+        JAMES: ${{ secrets.JAMES }}
       run: heroku container:login && sh ./heroku_env.sh
 
   # deploy-prod:
