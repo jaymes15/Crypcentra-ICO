@@ -1,6 +1,7 @@
-from rest_framework import viewsets, mixins, permissions
-from core.models import Bid
+from rest_framework import mixins, permissions, viewsets
+
 from bids import serializers
+from core.models import Bid
 
 
 class BidsViewSet(

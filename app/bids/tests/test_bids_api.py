@@ -2,11 +2,11 @@ from django.test import TestCase
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APIClient
-from core.models import Bid
-from core.tests import utils
+
 from bids.serializers import BidListSerializer, BidSerializer
 from core.helpers import sample_user
-
+from core.models import Bid
+from core.tests import utils
 
 BIDS_URL = reverse("bids:bids-list")
 REVIEW_BIDS_URL = reverse("bids:bids_review-list")

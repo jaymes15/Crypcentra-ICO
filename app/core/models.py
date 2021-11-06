@@ -1,6 +1,7 @@
-from django.db import models
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
+from django.db import models
+
 from core.model_validators.validate_date import validate_date
 from core.utils import current_date
 

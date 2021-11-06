@@ -1,10 +1,11 @@
 from django.contrib.auth import login
-from rest_framework import generics, permissions, status
-from rest_framework.response import Response
-from rest_framework.authtoken.serializers import AuthTokenSerializer
 from knox.models import AuthToken
 from knox.views import LoginView as KnoxLoginView
-from users.serializers import UserSerializer, RegisterSerializer
+from rest_framework import generics, permissions, status
+from rest_framework.authtoken.serializers import AuthTokenSerializer
+from rest_framework.response import Response
+
+from users.serializers import RegisterSerializer, UserSerializer
 
 # Register API
 

@@ -1,4 +1,5 @@
 from django.core.management.base import BaseCommand
+
 from core.integrations.defaults import default_send_tokens
 
 

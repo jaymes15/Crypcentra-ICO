@@ -1,7 +1,8 @@
 from rest_framework import serializers
+
+from coins.serializers import CoinListSerializer
 from core.models import Bid
 from users.serializers import UserSerializer
-from coins.serializers import CoinListSerializer
 
 
 class BidListSerializer(serializers.ModelSerializer):

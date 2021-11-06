@@ -1,10 +1,12 @@
+from datetime import timedelta
+from unittest.mock import patch
+
 from django.test import TestCase
+
+from core import models
 from core.helpers import sample_user
 from core.integrations.send_tokens import send_tokens
 from core.tests import utils
-from core import models
-from datetime import timedelta
-from unittest.mock import patch
 
 
 class TestSendToken(TestCase):

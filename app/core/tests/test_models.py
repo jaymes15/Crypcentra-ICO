@@ -1,13 +1,14 @@
-import pytest
-from django.test import TestCase
-from django.db.utils import IntegrityError
-from django.core.exceptions import ValidationError
-from mixer.backend.django import mixer
-from core import models
-from core.tests import utils
-from core.helpers import sample_user
 from datetime import timedelta
 
+import pytest
+from django.core.exceptions import ValidationError
+from django.db.utils import IntegrityError
+from django.test import TestCase
+from mixer.backend.django import mixer
+
+from core import models
+from core.helpers import sample_user
+from core.tests import utils
 
 pytestmark = pytest.mark.django_db
 

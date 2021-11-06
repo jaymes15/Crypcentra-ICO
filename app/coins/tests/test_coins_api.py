@@ -1,12 +1,14 @@
+from datetime import timedelta
+
 from django.test import TestCase
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APIClient
-from core.models import Coin
-from core.tests import utils
+
 from coins.serializers import CoinListSerializer, CoinSerializer
 from core.helpers import sample_user
-from datetime import timedelta
+from core.models import Coin
+from core.tests import utils
 
 COINS_URL = reverse("coins:coins-list")
 

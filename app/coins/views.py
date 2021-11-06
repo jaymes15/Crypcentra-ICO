@@ -1,6 +1,7 @@
-from rest_framework import viewsets, mixins, permissions
-from core.models import Coin
+from rest_framework import mixins, permissions, viewsets
+
 from coins import serializers
+from core.models import Coin
 
 
 class CoinsViewSet(

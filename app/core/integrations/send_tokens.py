@@ -1,8 +1,9 @@
-from core import models
-from core import utils
-import schedule
 import threading
 import time
+
+import schedule
+
+from core import models, utils
 
 
 def send_left_over_token(bid, coin):

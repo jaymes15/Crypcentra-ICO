@@ -76,3 +76,9 @@ To tear down the all containers:
 ```bash
 docker-compose down
 ```
+
+To isort:
+
+```bash
+docker-compose run --rm app sh -c "isort ."
+```
