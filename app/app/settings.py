@@ -110,6 +110,7 @@ WSGI_APPLICATION = "app.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
@@ -120,15 +121,6 @@ DATABASES = {
     }
 }
 
-CACHES = {
-    'default': {
-        'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': get_env_variable("REDIS_HOST"),
-        'OPTIONS': {
-            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
-        }
-    }
-}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -191,7 +183,6 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 # Cache time to live is 5 minutes
 CACHE_TTL = 60 * 5
-
 
 if DEBUG:
     hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())

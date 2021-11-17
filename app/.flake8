@@ -5,3 +5,5 @@ exclude =
   manage.py,
   settings.py
   settings_dev.py
+  settings_local.py
+  settings_test.py

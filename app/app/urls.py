@@ -1,13 +1,12 @@
+import debug_toolbar
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
 from rest_framework.documentation import include_docs_urls
 from rest_framework.schemas import get_schema_view
-import debug_toolbar
 
 urlpatterns = [
-    
     path("admin/", admin.site.urls),
     path(
         "v1/api_docs/",
