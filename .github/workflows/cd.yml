@@ -34,7 +34,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Lint
+      - name: Isort
         run: docker-compose run --rm app sh -c "isort ."
 
   deploy-staging:

@@ -23,4 +23,11 @@ services:
     depends_on: 
       - db
     container_name: app
+
+  redis:
+    image: "redis:alpine"
+    container_name: redis
+    expose:
+      - '6379'
+
     

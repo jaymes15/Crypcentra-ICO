@@ -4,8 +4,10 @@ from django.contrib import admin
 from django.urls import include, path
 from rest_framework.documentation import include_docs_urls
 from rest_framework.schemas import get_schema_view
+import debug_toolbar
 
 urlpatterns = [
+    
     path("admin/", admin.site.urls),
     path(
         "v1/api_docs/",
@@ -26,7 +28,7 @@ urlpatterns = [
     path("v1/users/", include("users.urls")),
     path("v1/coins/", include("coins.urls")),
     path("v1/bids/", include("bids.urls")),
-    path("", include("django_prometheus.urls"), name="django-prometheus"),
+    path('__debug__/', include(debug_toolbar.urls)),
 ] + (
     static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
