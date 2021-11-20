@@ -118,6 +118,11 @@ DATABASES = {
         "NAME": get_env_variable("DB_NAME"),
         "USER": get_env_variable("DB_USER"),
         "PASSWORD": get_env_variable("DB_PASS"),
+    },
+    "test_db": {
+        "ENGINE": "django.db.backends.sqlite3",
+       
+        "NAME": str(BASE_DIR / "test.db.sqlite3"),
     }
 }
 
@@ -177,7 +182,7 @@ STATIC_ROOT = BASE_DIR / "/vol/web/static/"
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+DEFAULT_AUTO_FIELD3 = "django.db.models.BigAutoField"
 
 CORS_ORIGIN_ALLOW_ALL = True
 
@@ -187,3 +192,5 @@ CACHE_TTL = 60 * 5
 if DEBUG:
     hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
     INTERNAL_IPS = [ip[:-1] + '1' for ip in ips] + ['127.0.0.1', '10.0.2.2']
+
+DATABASE_ROUTERS = ['routers.db_routers.AuthRouter']

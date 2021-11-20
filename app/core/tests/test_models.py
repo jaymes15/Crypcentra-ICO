@@ -17,12 +17,12 @@ class TestCoinModel:
     def setUp(self):
         self.user = sample_user()
 
-    def test_create_coin(self):
+    def test_sample_coin(self):
         """Test coin can be created"""
 
         coin = mixer.blend(
             models.Coin,
-            bidding_window=utils.current_date() + timedelta(days=10),
+            bidding_window=utils.get_current_date() + timedelta(days=10),
         )
         coin_query = models.Coin.objects.last()
 
@@ -34,20 +34,20 @@ class TestCoinModel:
         mixer.blend(
             models.Coin,
             name="my coin",
-            bidding_window=utils.current_date() + timedelta(days=10),
+            bidding_window=utils.get_current_date() + timedelta(days=10),
         )
 
         with pytest.raises(IntegrityError):
             mixer.blend(
                 models.Coin,
                 name="my coin",
-                bidding_window=utils.current_date() + timedelta(days=10),
+                bidding_window=utils.get_current_date() + timedelta(days=10),
             )
 
     def test_date_validator(self):
         """Test Coin object with past date can not be created"""
 
-        current_date = utils.current_date()
+        current_date = utils.get_current_date()
 
         coin = models.Coin(
             name="My coin",
@@ -66,7 +66,7 @@ class TestCoinModel:
 
         coin = mixer.blend(
             models.Coin,
-            bidding_window=utils.current_date() + timedelta(days=10),
+            bidding_window=utils.get_current_date() + timedelta(days=10),
         )
         coin_query = models.Coin.objects.last()
 

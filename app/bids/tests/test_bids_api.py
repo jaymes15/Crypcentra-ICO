@@ -23,7 +23,7 @@ class TestBidsView(TestCase):
         """Test POST"""
         self.client.force_authenticate(user=self.user)
 
-        coin = utils.create_coin(self.user)
+        coin = utils.sample_coin(self.user)
 
         payload = {
             "coin": coin.id,
@@ -39,7 +39,7 @@ class TestBidsView(TestCase):
 
     def test_post_requires_user_authentication(self):
         """Test POST requires user authentication"""
-        coin = utils.create_coin(self.user)
+        coin = utils.sample_coin(self.user)
 
         payload = {
             "coin": coin.id,

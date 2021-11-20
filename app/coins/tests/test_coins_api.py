@@ -24,11 +24,11 @@ class TestCoinView(TestCase):
         self.another_user = sample_user("another_user")
         self.client = APIClient()
 
-    def test_create_coins(self):
+    def test_sample_coins(self):
         """Test CREATE coins"""
         self.client.force_authenticate(user=self.user)
 
-        current_date = utils.current_date()
+        current_date = utils.get_current_date()
         payload = {
             "name": "jaycoins",
             "description": "my coins",
@@ -45,7 +45,7 @@ class TestCoinView(TestCase):
     def test_get_coins(self):
         """Test GET"""
 
-        utils.create_coin(self.user)
+        utils.sample_coin(self.user)
 
         response = self.client.get(COINS_URL)
         all_coins = Coin.objects.all()
@@ -58,7 +58,7 @@ class TestCoinView(TestCase):
     def test_get_coins_created_by_user(self):
         """Test get coins created by user"""
         self.client.force_authenticate(user=self.user)
-        utils.create_coin(self.user)
+        utils.sample_coin(self.user)
 
         response = self.client.get(COINS_URL)
         user_coins = Coin.objects.filter(owner=self.user.id)
@@ -73,7 +73,7 @@ class TestCoinView(TestCase):
 
         self.client.force_authenticate(user=self.user)
 
-        coin = utils.create_coin(self.user)
+        coin = utils.sample_coin(self.user)
         response = self.client.get(COINS_URL, {"coin_name": coin.name})
         coin_query = Coin.objects.filter(name=coin.name)
         serializer = CoinListSerializer(coin_query, many=True)

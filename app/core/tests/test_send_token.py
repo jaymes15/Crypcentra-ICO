@@ -13,7 +13,7 @@ class TestSendToken(TestCase):
     def setUp(self):
         self.main_user = sample_user("main_user")
         self.number_of_token = 28.0
-        self.coin = utils.create_coin(
+        self.coin = utils.sample_coin(
             self.main_user, token=self.number_of_token)
 
         self.create_users()
@@ -47,9 +47,10 @@ class TestSendToken(TestCase):
     @patch("core.models.current_date")
     def test_send_token(self, mock_return):
         """Test send token"""
-        mock_return.return_value = utils.current_date() - timedelta(days=10)
+        mock_return.return_value = \
+            utils.get_current_date() - timedelta(days=10)
 
-        self.coin.bidding_window = utils.current_date()
+        self.coin.bidding_window = utils.get_current_date()
 
         self.coin.save()
         self.coin.refresh_from_db()
