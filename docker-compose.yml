@@ -8,9 +8,10 @@ services:
       - POSTGRES_PASSWORD=supersecretpassword
     container_name: db
   app:
-    build: ./
-    cache_from:
-      - jaymes15/crypcentra-ico:latest
+    build:
+      context: .
+      cache_from:
+        - jaymes15/crypcentra-ico:latest
     image: jaymes15/crypcentra-ico:latest
     command: >
       sh -c "python manage.py wait_for_db &&
