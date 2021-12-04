@@ -8,11 +8,31 @@ on:
       - production
   pull_request: []
 
+env:
+  CACHE_IMAGE: jaymes15/crypcentra-ico
+  DOCKER_BUILDKIT: 1
+  COMPOSE_DOCKER_CLI_BUILD: 1
+
 jobs:
+
+  build:
+    name: Build Docker Image
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Log in to docker hub
+        run: docker login -u ${{ secrets.REGISTRY_USER }} -p ${{ secrets.REGISTRY_PASS }}
+      - name: Build Docker images
+        run: docker-compose build --build-arg BUILDKIT_INLINE_CACHE=1
+      - name: Push to docker hub
+        run: docker push $CACHE_IMAGE:latest
 
   test:
     name: Test
     runs-on: ubuntu-20.04
+    needs: [build]
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -22,6 +42,7 @@ jobs:
   lint:
     name: Lint
     runs-on: ubuntu-20.04
+    needs: [build]
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -40,7 +61,7 @@ jobs:
   deploy-staging:
     name: Deploy to Staging
     runs-on: ubuntu-latest
-    needs: [test, lint, isort]
+    needs: [build, test, lint, isort]
     if: github.ref == 'refs/heads/master'
     steps:
     - uses: actions/checkout@v1

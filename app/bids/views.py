@@ -1,6 +1,6 @@
 
 from rest_framework import mixins, permissions, viewsets
-
+from rest_framework.pagination import LimitOffsetPagination
 from bids import serializers
 from core.models import Bid
 
@@ -16,6 +16,7 @@ class BidsViewSet(
 
     queryset = Bid.objects.all()
     serializer_class = serializers.BidSerializer
+    pagination_class = LimitOffsetPagination
 
     def get_serializer_class(self):
 
