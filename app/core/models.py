@@ -6,6 +6,7 @@ from core.model_validators.validate_date import validate_date
 from core.utils import current_date
 
 
+print('dnjdhhdjdhjdgjgdjhdjdhddd')
 class Coin(models.Model):
     """Coin Model"""
 
