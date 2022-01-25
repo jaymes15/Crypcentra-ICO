@@ -5,7 +5,7 @@ from django.db import models
 from core.model_validators.validate_date import validate_date
 from core.utils import current_date
 
-
+print("-========")
 class Coin(models.Model):
     """Coin Model"""
 
